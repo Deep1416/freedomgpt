@@ -7,8 +7,19 @@ import googleRouter from './route/user.google.js';
 import AIRoute from './route/airoute.js';
 import PaymentRouter from './route/payment.route.js';
 import recaptchaRoutes from './route/recaptchaRoutes.js'
+import cors from 'cors'
 const app = express();
 const port = process.env.PORT || 4000;
+
+// CORS configuration
+const corsOptions = {
+  origin: ["http://localhost:5173", "http://localhost:3000"],
+  credentials: true, // Allow credentials (cookies) to be included
+  optionsSuccessStatus: 200
+};
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
 
 // Connect to the database
 ConnectDB();

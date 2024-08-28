@@ -37,7 +37,7 @@ const UserSchema = new mongoose.Schema({
   ,
   credit : {
     type : Number,
-    default : 0
+    default : 50
   }
   ,
   username : {

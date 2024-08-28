@@ -33,7 +33,7 @@ googleRouter.get(
         .status(200)
         .cookie("AccessToken", accessToken)
         .cookie("refreshToken", refreshToken);
-      res.redirect("/home");
+      res.redirect("/");
       // Set tokens as cookies
       // setAccessTokenCookie(res, accessToken);
       // setRefreshTokenCookie(res, refreshToken);
