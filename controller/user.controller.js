@@ -26,7 +26,7 @@ export const getToken = asyncHandler(async (req, res) => {
 export const RegisterUser = asyncHandler(async (req, res) => {
   const { firstname, lastname, email, password, username } = req.body;
   const user = await User.findOne({ email: email });
-  // console.log(user);
+  console.log(user);
   if (user) {
     console.log("working");
     throw new ApiError(409, "User Already have Account");
