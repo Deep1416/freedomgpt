@@ -13,7 +13,7 @@ const port = process.env.PORT || 4000;
 
 // CORS configuration
 const corsOptions = {
-  origin: ["http://localhost:5173", "http://localhost:3000"],
+  origin: ["https://freedomgpt-xn47.onrender.com","http://localhost:5173", "http://localhost:3000"],
   credentials: true, // Allow credentials (cookies) to be included
   optionsSuccessStatus: 200
 };
