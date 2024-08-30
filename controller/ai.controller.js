@@ -121,14 +121,15 @@ export const GeminiResponse = asyncHandler(async (req,res)=>{
   }
   user.credit -= 10;
   await user.save();
-  const result = await model.generateContent([
-    `${query}`,
-    {inlineData: {data: Buffer.from(fs.readFileSync(`${req.file.path}`)).toString("base64"), 
-    mimeType: 'image/png/jpeg'}}]
-  );
+  // const result = await model.generateContent([
+  //   `${query}`,
+  //   {inlineData: {data: Buffer.from(fs.readFileSync(`${req.file.path}`)).toString("base64"), 
+  //   mimeType: 'image/png/jpeg'}}]
+  // );
+  const result = await model.generateContent([`${query}`])
   // console.log(result.response.text());
   // console.log(text);
-  fs.unlinkSync(req.file.path);
+  // fs.unlinkSync(req.file.path);
   res.status(200).json(
     new ApiResponse(
       200,
