@@ -27,10 +27,10 @@ const openai = new OpenAI(
 
 export const llama = asyncHandler(async(req,res)=>{
   const user = await User.findById(req.user._id);
-  if (user.credit < 10) {
+  if (user.credit < 8) {
     return res.status(403).json(new ApiResponse(403, null, "Insufficient credits"));
   }
-  user.credit -= 10;
+  user.credit -= 8;
   await user.save();
   const response = await cohere.chat({
 		message: `${req.body.query}`
@@ -45,10 +45,10 @@ export const GptResponse2 = asyncHandler(async (req,res)=>{
   console.log(query);
   const user = await User.findById(req.user._id);
   console.log(user);
-  if (user.credit < 10) {
+  if (user.credit < 4) {
     return res.status(403).json(new ApiResponse(403, null, "Insufficient credits"));
   }
-  user.credit -= 10;
+  user.credit -= 4;
   await user.save();
   console.log("working");
   const completion = await openai.chat.completions.create({
@@ -83,10 +83,10 @@ export const GptResponse = asyncHandler(async (req,res)=>{
   const {query} = req.body;
   // console.log(query);
   const user = await User.findById(req.user._id);
-  if (user.credit < 10) {
+  if (user.credit < 1) {
     return res.status(403).json(new ApiResponse(403, null, "Insufficient credits"));
   }
-  user.credit -= 10;
+  user.credit -= 1;
   await user.save();
 
   const completion = await openai.chat.completions.create({
@@ -116,20 +116,19 @@ export const GeminiResponse = asyncHandler(async (req,res)=>{
   const {query} = req.body;
   // console.log(req.file);
   const user = await User.findById(req.user._id);
-  if (user.credit < 10) {
+  if (user.credit < 1) {
     return res.status(403).json(new ApiResponse(403, null, "Insufficient credits"));
   }
-  user.credit -= 10;
+  user.credit -= 1;
   await user.save();
-  // const result = await model.generateContent([
-  //   `${query}`,
-  //   {inlineData: {data: Buffer.from(fs.readFileSync(`${req.file.path}`)).toString("base64"), 
-  //   mimeType: 'image/png/jpeg'}}]
-  // );
-  const result = await model.generateContent([`${query}`])
+  const result = await model.generateContent([
+    `${query}`,
+    {inlineData: {data: Buffer.from(fs.readFileSync(`${req.file.path}`)).toString("base64"), 
+    mimeType: 'image/png/jpeg'}}]
+  );
   // console.log(result.response.text());
   // console.log(text);
-  // fs.unlinkSync(req.file.path);
+  fs.unlinkSync(req.file.path);
   res.status(200).json(
     new ApiResponse(
       200,
